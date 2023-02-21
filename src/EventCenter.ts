@@ -3,8 +3,8 @@
  * 应用场景：可以在渲染前后、初始化物体前后、物体状态改变时触发一系列事件
  */
 export class EventCenter {
-    private __eventListeners;
-    on(eventName, handler) {
+    private __eventListeners: Record<string, any>;
+    on(eventName: string, handler: any) {
         if (!this.__eventListeners) {
             this.__eventListeners = {};
         }
@@ -15,7 +15,7 @@ export class EventCenter {
         this.__eventListeners[eventName].push(handler);
         return this;
     }
-    off(eventName, handler) {
+    off(eventName: string, handler: any) {
         if (!this.__eventListeners) {
             return this;
         }
@@ -31,7 +31,7 @@ export class EventCenter {
         }
         return this;
     }
-    emit(eventName, options = {}) {
+    emit(eventName: string, options = {}) {
         if (!this.__eventListeners) {
             return this;
         }
@@ -47,7 +47,7 @@ export class EventCenter {
         this.__eventListeners[eventName] = listenersForEvent.filter((value) => value !== false);
         return this;
     }
-    _removeEventListener(eventName, handler) {
+    _removeEventListener(eventName: string, handler: any) {
         if (!this.__eventListeners[eventName]) {
             return;
         }
