@@ -209,7 +209,7 @@ export class FabricObject extends EventCenter {
         return this;
     }
     /** 绘制包围盒模型的控制点 */
-    drawControls(ctx: CanvasRenderingContext2D): FabricObject {
+    drawControls(ctx: CanvasRenderingContext2D): FabricObject | undefined {
         if (!this.hasControls) return;
         // 因为画布已经经过变换，所以大部分数值需要除以 scale 来抵消变换
         let size = this.cornerSize,
@@ -519,7 +519,7 @@ export class FabricObject extends EventCenter {
     }
     /** 物体动画 */
     animate(props, animateOptions: IAnimationOption): FabricObject {
-        let propsToAnimate = [];
+        let propsToAnimate: any = [];
         for (let prop in props) {
             propsToAnimate.push(prop);
         }
@@ -556,7 +556,7 @@ export class FabricObject extends EventCenter {
             byValue: options.by,
             easing: options.easing,
             duration: options.duration,
-            abort: options.abort && (() => options.abort.call(this)),
+            abort: options.abort && (() => options.abort!.call(this)),
             onChange: (value) => {
                 this.set(property, value);
                 if (skipCallbacks) {
@@ -1113,7 +1113,7 @@ export class FabricObject extends EventCenter {
         return object;
     }
     toSvg(): string {
-        const markup = [];
+        const markup: any = [];
         const objSvg = this._toSVG();
 
         markup.push('<g ', this.getSvgTransform(), ' >\n');
